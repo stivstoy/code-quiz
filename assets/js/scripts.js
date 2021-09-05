@@ -15,6 +15,7 @@ var personScores;
 //checking for local storage
 if (JSON.parse(window.localStorage.getItem('user'))) {
     personScores = JSON.parse(window.localStorage.getItem('user'));
+    
 }
 else {
     personScores = [];
@@ -269,9 +270,16 @@ function storeName(playerName, timeLeft) {
 //display scores
 function displayScores() {
     var ul = document.getElementById("list");
-    for (var i = 0; i < personScores.length; i++) {
+    var byScore = personScores.slice(0);
+   
+byScore.sort(function(a,b) {
+    return b.scores - a.scores;
+});
+
+console.log(byScore);
+    for (var i = 0; i < byScore.length; i++) {        
         var li = document.createElement("li");
         ul.appendChild(li);
-        li.innerHTML = li.innerHTML + personScores[i].names + " - " + personScores[i].scores;
+        li.innerHTML = li.innerHTML + byScore[i].names + " - " + byScore[i].scores;
     }
 }
