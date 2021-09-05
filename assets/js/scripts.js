@@ -1,24 +1,42 @@
-var timeLeft;
+//global vars
+var timeLeft = 60;
 var start = document.getElementById("startBtn");
 var question1 = "Whats the time?";
 var question2 = "No sleep til?";
 var question3 = "Fight for your right to?";
 var question4 = "Hey what?";
 var question5 = "This is?";
-var timeLeft = 60
+var playerName = "";
+var quizTimer = "";
+var time = "";
+var name = ''
+var personScores;
 
+//checking for local storage
+if (JSON.parse(window.localStorage.getItem('user'))) {
+    personScores = JSON.parse(window.localStorage.getItem('user'));
+}
+else {
+    personScores = [];
+}
 
+//displaying scores
+
+displayScores();
+
+//queston arrays
 const questions = [question1, question2, question3, question4, question5];
 const q1Options = ["to get ill", "hammer", "high noon"];
 const q2Options = ["morning", "brooklyn", "midnight"];
 const q3Options = ["party", "vote", "eat pizza"];
-const q4Options = ["is for horses", "man", "ladys"];
-const q5Options = ["the times that try mens souls", "it", "sabotage"];
+const q4Options = ["is for horses", "man", "ladies"];
+const q5Options = ["the times that try mens souls", "what im talkin about", "sabotage"];
 
+//start timer function
 start.addEventListener("click", function () {
     startTimer();
-    //console.log();
     questionOne();
+    start.style.visibility = 'hidden';
 })
 
 function startTimer() {
@@ -31,12 +49,13 @@ function startTimer() {
         timer();
     }, 1000);
 }
-
+// display timer
 function timer() {
-    document.getElementById("timer").innerHTML = timeLeft;
+    document.getElementById("timer").innerHTML = "Time: " + timeLeft;
 
 }
 
+// display first question
 function questionOne() {
     var text = '';
     for (var i = 0; i < questions.length; i++) {
@@ -55,6 +74,7 @@ function questionOne() {
     }
 }
 
+// display second question
 function questionTwo() {
     var text = '';
     for (var i = 0; i < questions.length; i++) {
@@ -73,6 +93,7 @@ function questionTwo() {
     }
 }
 
+// display third question
 function questionThree() {
     var text = '';
     for (var i = 0; i < questions.length; i++) {
@@ -91,6 +112,8 @@ function questionThree() {
     }
 }
 
+// display fourth question
+
 function questionFour() {
     var text = '';
     for (var i = 0; i < questions.length; i++) {
@@ -98,10 +121,10 @@ function questionFour() {
             document.getElementById("questions").innerHTML = text += questions[i] + "<br>";
             for (var i = 0; i < q4Options.length; i++) {
                 var options = text += "<input type='radio' id='Q4' name = 'Q4' value=" + q4Options[i] + ">" + q4Options[i] + "<br>";
-                console.log(q4Options[i]);
+                //console.log(q4Options[i]);
                 document.getElementById("questions").innerHTML = options + "<br><button type='submit'  onclick= 'checkAnswer4()'>Submit</button>";
 
-                console.log(questions[i]);
+                //console.log(questions[i]);
 
 
             }
@@ -109,134 +132,117 @@ function questionFour() {
     }
 }
 
+// display question
 function questionFive() {
+    console.log("five hit")
     var text = '';
-    for (var i = 0; i < questions.length; i++) {
-        if (questions[i] === "This is?") {
-            document.getElementById("questions").innerHTML = text += questions[i] + "<br>";
-            for (var i = 0; i < q5Options.length; i++) {
-                var options = text += "<input type='radio' id='Q5' name = 'Q5' value=" + q5Options[i] + ">" + q5Options[i] + "<br>";
-                console.log(q5Options[i]);
-                document.getElementById("questions").innerHTML = options + "<br><button type='submit'  onclick= 'checkAnswer5()'>Submit</button>";
-
-                console.log(questions[i]);
 
 
-            }
-        }
+    document.getElementById("questions").innerHTML = text += questions[questions.length - 1] + "<br>";
+    for (var i = 0; i < q5Options.length; i++) {
+        var options = text += "<input type='radio' id='Q5' name = 'Q5' value=" + q5Options[i] + ">" + q5Options[i] + "<br>";
+        console.log(q5Options[i]);
+        document.getElementById("questions").innerHTML = options + "<br><button type='submit'  onclick= 'checkAnswer5()'>Submit</button>";
     }
 }
 
-
+//check answer 1
 function checkAnswer1() {
 
     var ele = document.getElementsByName('Q1');
     for (var i = 0, length = ele.length; i < length; i++) {
         if (ele[i].checked && ele[i].value === 'to') {
-            // do whatever you want with the checked radio
-            alert(ele[i].value);
+
+            //alert(ele[i].value);
             questionTwo();
-            // only one radio can be logically checked, don't check the rest
-            // break;
+
         }
         if (ele[i].checked && ele[i].value != 'to') {
-            alert(ele[i].value);
+            alert("Wrong!!!");
             questionOne();
         }
 
     }
-
-    //for(i = 0; i < ele.length; i++) {
-    // if (ele[i].checked && ele[i].value === "hammer" ) {
-    // if( selected && selected.value === "hammer"){
-    // window.alert (ele[i].value);
-    // window.alert (selected);
-    // questionTwo();
-    //document.getElementById("result").innerHTML
-    //   = "Gender: "+ele[i].value;
-    // }
-
-    // else {
-
-    //  questionOne();
-    //  }
-    //}
-
 }
 
+//check answer 2
 function checkAnswer2() {
 
     var ele = document.getElementsByName('Q2');
     for (var i = 0, length = ele.length; i < length; i++) {
         if (ele[i].checked && ele[i].value === 'brooklyn') {
 
-            alert(ele[i].value);
+            // alert(ele[i].value);
             questionThree();
 
         }
         if (ele[i].checked && ele[i].value != 'brooklyn') {
 
-            alert(ele[i].value);
+            alert("Wrong!!!");
             questionTwo();
 
         }
     }
 }
 
+//check answer 3
 function checkAnswer3() {
 
     var ele = document.getElementsByName('Q3');
     for (var i = 0, length = ele.length; i < length; i++) {
         if (ele[i].checked && ele[i].value === "party") {
-
-            alert(ele[i].value);
             questionFour();
-
         }
         if (ele[i].checked && ele[i].value != "party") {
-         
-            alert(ele[i].value);
+            alert("Wrong!!!");
             questionThree();
-
         }
 
     }
 
 }
-
+//check answer 4
 function checkAnswer4() {
-
+    console.log("hit");
     var ele = document.getElementsByName('Q4');
     for (var i = 0, length = ele.length; i < length; i++) {
-        if (ele[i].checked && ele[i].value === 'ladys') {
-
-            alert(ele[i].value);
+        if (ele[i].checked && ele[i].value === "ladies") {
+            console.log("ifhit")
             questionFive();
 
         }
-        else if  (ele[i].checked && ele[i].value != 'ladys') {
+        if (ele[i].checked && ele[i].value != "ladies") {
 
-            alert(ele[i].value);
-            question4();
+            alert("Wrong!!!");
+            questionFour();
 
         }
 
     }
+
+}
+//clear timer
+function myStopFunction() {
+    clearInterval(quizTimer);
 }
 
+//check answer 5
 function checkAnswer5() {
 
     var ele = document.getElementsByName('Q5');
     for (var i = 0, length = ele.length; i < length; i++) {
         if (ele[i].checked && ele[i].value === "sabotage") {
-
-            alert(ele[i].value);
-          // questionFive();
+            myStopFunction()
+            playerName = window.prompt("What is your name?");
+            // personScores.push(playerName,timeLeft);
+            window.alert('Hi ' + playerName + ' your score is ' + timeLeft);
+            storeName(playerName, timeLeft);
 
         }
+
         if (ele[i].checked && ele[i].value != "sabotage") {
 
-            alert(ele[i].value);
+            alert("Wrong!!!");
             questionFive();
 
         }
@@ -244,8 +250,28 @@ function checkAnswer5() {
     }
 }
 
+//store names and scores
+function storeName(playerName, timeLeft) {
+    const personScoreDataObj = {
+        names: playerName,
+        scores: timeLeft,
+    }
 
+    personScores.push(personScoreDataObj);
+    window.localStorage.setItem('user', JSON.stringify(personScores));
 
+    window.localStorage.getItem('user');
 
+    JSON.parse(window.localStorage.getItem('user'));
+    displayScores();
 
-
+}
+//display scores
+function displayScores() {
+    var ul = document.getElementById("list");
+    for (var i = 0; i < personScores.length; i++) {
+        var li = document.createElement("li");
+        ul.appendChild(li);
+        li.innerHTML = li.innerHTML + personScores[i].names + " - " + personScores[i].scores;
+    }
+}

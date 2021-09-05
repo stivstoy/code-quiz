@@ -1,30 +1,34 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-    <title>Quiz</title>
-    <link rel="stylesheet" href="./assets/css/styles.css" />
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+  <title>Quiz</title>
+  <link rel="stylesheet" href="./assets/css/styles.css" />
+
+</head>
+
+<body>
+  <div class="header">
+    <h1 id="timer">Beastie Boys Lyrics Quiz: <span style="font-size: 18px"><br>Please take the following quiz to evaluate your knowledge in Beastie Boy lyrics. Your final score will be the number of seconds it takes you to answer all the questions correctly.</span></h1>
     
-  </head>
-  <body>
-      <header>
-        <h1 id="timer"></h1>
-      </header>
+  </div>
 
-      <main>
-        <p><button type="button" id ="startBtn" >Start Quiz </button></p>
-        <form>
-        <div id ="questions">
-           
-        </div>
-       </form>
-      </main>
+  <div class="container">
+    <form>
+      <p><button type="button" id="startBtn">Start Quiz </button></p>
+      <div id="questions">
+        <ul id="list"><span style = "font-size: 20px; margin-top: 50px;">High Scores</span></ul>
+      </div>
+    </form>
+  </div>
 
-      <footer>
+  <footer>
 
-      </footer>
-    <script src="./assets/js/scripts.js"></script>
-  </body>
+  </footer>
+  <script src="./assets/js/scripts.js"></script>
+</body>
+
 </html>
